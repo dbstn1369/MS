@@ -1,0 +1,83 @@
+@startuml
+
+
+
+
+    private Toolbar toolbar;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+    private ViewPagerAdapter adapter;
+
+    private List<Fragment> fragmentList;
+
+    private List<Event> eventList;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        tabLayout = (TabLayout) findViewById(R.id.tablayout);
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        eventList = new ArrayList<>();
+
+        fragmentList = new ArrayList<>();
+
+        tabLayout.addTab(tabLayout.newTab().setText("공모전"));
+        fragmentList.add(new NewsFragment());
+
+        tabLayout.addTab(tabLayout.newTab().setText("축제"));
+        fragmentList.add(new FestFragment());
+
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        adapter = new ViewPagerAdapter(getSupportFragmentManager(), fragmentList);
+        viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.alarmButton:
+                Intent intent = new Intent(MainActivity.this, AlarmActivity.class);
+                intent.putExtra("eventList", (Serializable) eventList);
+                startActivity(intent);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    // TODO 임시 메소드
+    public void addToList(Event event) {
+        eventList.add(event);
+    }
+}
+
+@enduml

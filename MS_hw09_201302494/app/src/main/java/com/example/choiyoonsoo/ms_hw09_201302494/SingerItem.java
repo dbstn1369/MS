@@ -6,16 +6,16 @@ public class SingerItem {
     String produce;
     String nameofproduct;
     String what;
-    int money;
+    String money;
     int resid;
 
 
 
-    public SingerItem(String produce, String nameofproduct, String what, int money, int resid) {
+    public SingerItem(String produce, String nameofproduct,String money, String what,int resid) {
         this.produce = produce;
         this.nameofproduct = nameofproduct;
-        this.what = what;
         this.money = money;
+        this.what = what;
         this.resid = resid;
 
     }
@@ -39,7 +39,7 @@ public class SingerItem {
         this.what = what;
     }
 
-    public void setMoney(int money) {
+    public void setMoney(String money) {
         this.money = money;
     }
 
@@ -56,7 +56,7 @@ public class SingerItem {
         return what;
     }
 
-    public int getMoney() {
+    public String getMoney() {
         return money;
     }
 
